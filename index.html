@@ -4,11 +4,11 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+		<title>ShenWay Platform Intro & Program Optimization</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+		<link rel="stylesheet" href="dist/theme/solarized.css">
 
 		<!-- Theme used for syntax highlighted code -->
 		<link rel="stylesheet" href="plugin/highlight/monokai.css">
@@ -16,8 +16,44 @@
 	<body>
 		<div class="reveal">
 			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
+				<section>
+						ShenWay Platform Intro & Program Optimization
+						<p>满洋</p>
+				</section>
+				<section>
+					<section>
+						<p>ShenWay Platform</p>
+						<p class="fragment">Multi-core VS Many-core VS Cuda cores</p>
+					</section>
+					<section>
+						<p>Multi-Core CPU</p>
+						<img class="fragment" src="https://en.wikichip.org/w/images/2/2e/skylake_soc_block_diagram.svg">
+						<p class="fragment">Intel Gen9 CPU (Quad Core)</p>
+					</section>
+					<section>
+						<p>Individual Core</p>
+						<div style="height:600px;overflow:auto">
+							<img height=1600px class="fragment r-stretch" src="https://en.wikichip.org/w/images/7/7e/skylake_block_diagram.svg">
+						</div>
+					</section>
+					<section>
+						<p>Many-Core CPU</p>
+						<p class="fragment">Intel MIC(Intel Phi) &emsp; ShenWay(SW26010)</p>
+						<div class="fragment">
+							<img width=300px src="https://www.intel.cn/content/dam/www/public/us/en/images/product/RWD/xeon-phi-family-rwd.png.rendition.intel.web.480.270.png">
+							<img width=600px src="http://bbs.sciencenet.cn/home.php?mod=attachment&filename=image.png&id=723412">
+						</div>
+					</section>
+					<section>
+						<p>GPU</p>
+						<img src="https://docs.nvidia.com/cuda/cuda-c-programming-guide/graphics/gpu-devotes-more-transistors-to-data-processing.png">
+					</section>
+				</section>
+				<section>
+					<section>
+						ShenWay TaiHu-Lake
+					</section>
+				</section>
 			</div>
 		</div>
 
