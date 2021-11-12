@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>ShenWay Platform Intro & Program Optimization</title>
+		<title>CPU Microarchitecture & Program Optimization</title>
 
 		<link rel="stylesheet" href="dist/reset.css">
 		<link rel="stylesheet" href="dist/reveal.css">
@@ -17,41 +17,143 @@
 		<div class="reveal">
 			<div class="slides">
 				<section>
-						ShenWay Platform Intro & Program Optimization
+						CPU Microarchitecture & Program Optimization
 						<p>满洋</p>
 				</section>
 				<section>
 					<section>
-						<p>ShenWay Platform</p>
-						<p class="fragment">Multi-core VS Many-core VS Cuda cores</p>
+						<p>CPU Microarchitecture</p>
 					</section>
 					<section>
-						<p>Multi-Core CPU</p>
+						<h2>Pipeline</h2>
+						<ul>
+							<li>Naive</li>
+							<li>Pipeling</li>
+							<li>Bypass Channel</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Other Essential Feature</h2>
+						<ul>
+							<li>Super Scalar Executing</li>
+							<li>VLIW (Very Long Instruction Word)</li>
+							<li>Branch Prediction</li>
+							<li>OOOE (Out of Order Executing)</li>
+							<li>SMT/KMP</li>
+							<li>SIMD</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Modern CPU Microarchitecture</h2>
 						<img class="fragment" src="https://en.wikichip.org/w/images/2/2e/skylake_soc_block_diagram.svg">
 						<p class="fragment">Intel Gen9 CPU (Quad Core)</p>
 					</section>
 					<section>
-						<p>Individual Core</p>
+						<h2>Modern CPU Microarchitecture</h2>
 						<div style="height:600px;overflow:auto">
 							<img height=1600px class="fragment r-stretch" src="https://en.wikichip.org/w/images/7/7e/skylake_block_diagram.svg">
 						</div>
 					</section>
+				</section>
+				<section>
 					<section>
-						<p>Many-Core CPU</p>
-						<p class="fragment">Intel MIC(Intel Phi) &emsp; ShenWay(SW26010)</p>
-						<div class="fragment">
-							<img width=300px src="https://www.intel.cn/content/dam/www/public/us/en/images/product/RWD/xeon-phi-family-rwd.png.rendition.intel.web.480.270.png">
-							<img width=600px src="http://bbs.sciencenet.cn/home.php?mod=attachment&filename=image.png&id=723412">
-						</div>
+						Cache Hierarchy
 					</section>
 					<section>
-						<p>GPU</p>
-						<img src="https://docs.nvidia.com/cuda/cuda-c-programming-guide/graphics/gpu-devotes-more-transistors-to-data-processing.png">
+						<h2>Cache Hierarchy</h2>
+						<table>
+    						<thead><tr>
+         		   			<th>Stage</th>
+         		   			<th>Size</th>
+         		   			<th>Latency</th>
+         		   			<th>Location</th>
+        					</tr></thead>
+
+        					<tbody><tr>
+         		   			<td>L1</td>
+         		   			<td>32KiB</td>
+         		   			<td>4 cycles</td>
+         		   			<td>Each core</td>
+        					</tr>
+
+        					<tbody><tr>
+         		   			<td>L2</td>
+         		   			<td>256KiB</td>
+         		   			<td>12 cycles</td>
+         		   			<td>Each core/Each Die</td>
+        					</tr>
+
+        					<tbody><tr>
+         		   			<td>L3/LLC</td>
+         		   			<td>16MiB</td>
+         		   			<td>~25 cycles</td>
+         		   			<td>Each Die/All cores</td>
+        					</tr>
+
+        					<tbody><tr>
+         		   			<td>Main Memory</td>
+         		   			<td>up to 1TiB</td>
+         		   			<td>100+ cycles</td>
+         		   			<td>MotherBoard</td>
+        					</tr>
+
+    				</table>
+					</section>
+					<section>
+						<h2>Set Associative Cache</h2>
+						<img height=1600px class="r-stretch" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Set-Associative_Cache_Snehal_Img.png">
 					</section>
 				</section>
 				<section>
 					<section>
-						ShenWay TaiHu-Lake
+						Program Optimization Technique
+					</section>
+					<section>
+						<h2>Compiler's Work</h2>
+						<ul>
+						<li>Loop Unrolling</li>
+						<li>Loop Vectorization</li>
+						<li>Fuse Multipy-Add</li>
+						<li>IPO/LTO/PGO</li>
+						</ul>
+					</section>
+					<section>
+						<h2> Programmer's Side</h2>
+						<ul>
+							<li>Profiling</li>
+							<li>Loop Decoupling</li>
+							<li>Date Locality</li>
+							<li>Alogrithm Optimization</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Theory Guidance</h2>
+						<ul>
+							<li>Micro-benchmark</li>
+							<li>Roofline Model</li>	
+						</ul>
+
+					</section>
+				</section>
+				<section>
+					<section>
+						Exercise SLIC Alogrithm
+					</section>
+					<section>
+						<h2>Program Structure</h2>
+						<ul>
+							<li>RGB2LAB</li>
+							<li>Seed</li>
+							<li>Segmentation</li>
+							<li>LabelCheck</li>
+						</ul>
+					</section>
+					<section>
+						<h2>Optimization Method</h2>
+						<ul>
+							<li>OpenMP Parallelize</li>
+							<li>Loop Vectorization</li>
+						</ul>
 					</section>
 				</section>
 			</div>
@@ -67,6 +169,7 @@
 			// - https://revealjs.com/config/
 			Reveal.initialize({
 				hash: true,
+				slideNumber: true,
 
 				// Learn about plugins: https://revealjs.com/plugins/
 				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
