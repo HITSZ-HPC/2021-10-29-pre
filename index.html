@@ -1,179 +1,191 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>CPU Microarchitecture & Program Optimization</title>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/solarized.css">
+    <title>CPU Microarchitecture & Program Optimization</title>
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>
-						CPU Microarchitecture & Program Optimization
-						<p>满洋</p>
-				</section>
-				<section>
-					<section>
-						<p>CPU Microarchitecture</p>
-					</section>
-					<section>
-						<h2>Pipeline</h2>
-						<ul>
-							<li>Naive</li>
-							<li>Pipeling</li>
-							<li>Bypass Channel</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Other Essential Feature</h2>
-						<ul>
-							<li>Super Scalar Executing</li>
-							<li>VLIW (Very Long Instruction Word)</li>
-							<li>Branch Prediction</li>
-							<li>OOOE (Out of Order Executing)</li>
-							<li>SMT/KMP</li>
-							<li>SIMD</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Modern CPU Microarchitecture</h2>
-						<img class="fragment" src="https://en.wikichip.org/w/images/2/2e/skylake_soc_block_diagram.svg">
-						<p class="fragment">Intel Gen9 CPU (Quad Core)</p>
-					</section>
-					<section>
-						<h2>Modern CPU Microarchitecture</h2>
-						<div style="height:600px;overflow:auto">
-							<img height=1600px class="fragment r-stretch" src="https://en.wikichip.org/w/images/7/7e/skylake_block_diagram.svg">
-						</div>
-					</section>
-				</section>
-				<section>
-					<section>
-						Cache Hierarchy
-					</section>
-					<section>
-						<h2>Cache Hierarchy</h2>
-						<table>
-    						<thead><tr>
-         		   			<th>Stage</th>
-         		   			<th>Size</th>
-         		   			<th>Latency</th>
-         		   			<th>Location</th>
-        					</tr></thead>
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/solarized.css">
 
-        					<tbody><tr>
-         		   			<td>L1</td>
-         		   			<td>32KiB</td>
-         		   			<td>4 cycles</td>
-         		   			<td>Each core</td>
-        					</tr>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
+</head>
 
-        					<tbody><tr>
-         		   			<td>L2</td>
-         		   			<td>256KiB</td>
-         		   			<td>12 cycles</td>
-         		   			<td>Each core/Each Die</td>
-        					</tr>
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section>
+                CPU Microarchitecture & Program Optimization
+                <p>满洋</p>
+            </section>
+            <section>
+                <section>
+                    <p>CPU Microarchitecture</p>
+                </section>
+                <section>
+                    <h2>Pipeline</h2>
+                    <ul>
+                        <li>Naive</li>
+                        <li>Pipeling</li>
+                        <li>Bypass Channel</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Other Essential Feature</h2>
+                    <ul>
+                        <li>Super Scalar Executing</li>
+                        <li>VLIW (Very Long Instruction Word)</li>
+                        <li>Branch Prediction</li>
+                        <li>OOOE (Out of Order Executing)</li>
+                        <li>SMT/SMP</li>
+                        <li>SIMD</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Modern CPU Microarchitecture</h2>
+                    <img class="fragment" src="https://en.wikichip.org/w/images/2/2e/skylake_soc_block_diagram.svg">
+                    <p class="fragment">Intel Gen9 CPU (Quad Core)</p>
+                </section>
+                <section>
+                    <h2>Modern CPU Microarchitecture</h2>
+                    <div style="height:600px;overflow:auto">
+                        <img height=1600px class="fragment r-stretch" src="https://en.wikichip.org/w/images/7/7e/skylake_block_diagram.svg">
+                    </div>
+                </section>
+            </section>
+            <section>
+                <section>
+                    Cache Hierarchy
+                </section>
+                <section>
+                    <h2>Cache Hierarchy</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Size</th>
+                                <th>Latency</th>
+                                <th>Location</th>
+                            </tr>
+                        </thead>
 
-        					<tbody><tr>
-         		   			<td>L3/LLC</td>
-         		   			<td>16MiB</td>
-         		   			<td>~25 cycles</td>
-         		   			<td>Each Die/All cores</td>
-        					</tr>
+                        <tbody>
+                            <tr>
+                                <td>L1</td>
+                                <td>32KiB</td>
+                                <td>4 cycles</td>
+                                <td>Each core</td>
+                            </tr>
+                        </tbody>
 
-        					<tbody><tr>
-         		   			<td>Main Memory</td>
-         		   			<td>up to 1TiB</td>
-         		   			<td>100+ cycles</td>
-         		   			<td>MotherBoard</td>
-        					</tr>
+                        <tbody>
+                            <tr>
+                                <td>L2</td>
+                                <td>256KiB</td>
+                                <td>12 cycles</td>
+                                <td>Each core/Each Die</td>
+                            </tr>
+                        </tbody>
 
-    				</table>
-					</section>
-					<section>
-						<h2>Set Associative Cache</h2>
-						<img height=1600px class="r-stretch" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Set-Associative_Cache_Snehal_Img.png">
-					</section>
-				</section>
-				<section>
-					<section>
-						Program Optimization Technique
-					</section>
-					<section>
-						<h2>Compiler's Work</h2>
-						<ul>
-						<li>Loop Unrolling</li>
-						<li>Loop Vectorization</li>
-						<li>Fuse Multipy-Add</li>
-						<li>IPO/LTO/PGO</li>
-						</ul>
-					</section>
-					<section>
-						<h2> Programmer's Side</h2>
-						<ul>
-							<li>Profiling</li>
-							<li>Loop Decoupling</li>
-							<li>Date Locality</li>
-							<li>Alogrithm Optimization</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Theory Guidance</h2>
-						<ul>
-							<li>Micro-benchmark</li>
-							<li>Roofline Model</li>	
-						</ul>
+                        <tbody>
+                            <tr>
+                                <td>L3/LLC</td>
+                                <td>16MiB</td>
+                                <td>~25 cycles</td>
+                                <td>Each Die/All cores</td>
+                            </tr>
+                        </tbody>
 
-					</section>
-				</section>
-				<section>
-					<section>
-						Exercise SLIC Alogrithm
-					</section>
-					<section>
-						<h2>Program Structure</h2>
-						<ul>
-							<li>RGB2LAB</li>
-							<li>Seed</li>
-							<li>Segmentation</li>
-							<li>LabelCheck</li>
-						</ul>
-					</section>
-					<section>
-						<h2>Optimization Method</h2>
-						<ul>
-							<li>OpenMP Parallelize</li>
-							<li>Loop Vectorization</li>
-						</ul>
-					</section>
-				</section>
-			</div>
-		</div>
+                        <tbody>
+                            <tr>
+                                <td>Main Memory</td>
+                                <td>up to 1TiB</td>
+                                <td>100+ cycles</td>
+                                <td>MotherBoard</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+                <section>
+                    <h2>Set Associative Cache</h2>
+                    <img height=1600px class="r-stretch" src="https://upload.wikimedia.org/wikipedia/commons/7/71/Set-Associative_Cache_Snehal_Img.png">
+                </section>
+            </section>
+            <section>
+                <section>
+                    Program Optimization Technique
+                </section>
+                <section>
+                    <h2>Compiler's Work</h2>
+                    <ul>
+                        <li>Loop Unrolling</li>
+                        <li>Loop Vectorization</li>
+                        <li>Fuse Multipy-Add</li>
+                        <li>IPO/LTO/PGO</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2> Programmer's Side</h2>
+                    <ul>
+                        <li>Profiling</li>
+                        <li>Loop Decoupling</li>
+                        <li>Data Locality</li>
+                        <li>Algorithm Optimization</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Theory Guidance</h2>
+                    <ul>
+                        <li>Micro-benchmark</li>
+                        <li>Roofline Model</li>
+                    </ul>
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
-				slideNumber: true,
+                </section>
+            </section>
+            <section>
+                <section>
+                    Exercise SLIC Alogrithm
+                </section>
+                <section>
+                    <h2>Program Structure</h2>
+                    <ul>
+                        <li>RGB2LAB</li>
+                        <li>Seed</li>
+                        <li>Segmentation</li>
+                        <li>LabelCheck</li>
+                    </ul>
+                </section>
+                <section>
+                    <h2>Optimization Method</h2>
+                    <ul>
+                        <li>OpenMP Parallelize</li>
+                        <li>Loop Vectorization</li>
+                    </ul>
+                </section>
+            </section>
+        </div>
+    </div>
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+        // More info about initialization & config:
+        // - https://revealjs.com/initialization/
+        // - https://revealjs.com/config/
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+
+            // Learn about plugins: https://revealjs.com/plugins/
+            plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+        });
+    </script>
+</body>
+
 </html>
